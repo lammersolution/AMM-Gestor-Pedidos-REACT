@@ -11,9 +11,9 @@ export default function Topbar({ onImportar }) {
     <header className="topbar">
       <div className="topbar-brand">
         <div className="topbar-brand-mark">
-          <img src="/logo.png" alt="AMM" style={{ height:20, width:'auto', display:'block' }} />
+          <img src="/logo.png" alt="AMM" style={{ height:22, width:'auto', display:'block', filter:'drop-shadow(0 0 8px rgba(77,163,232,.4))' }} />
         </div>
-        <span className="topbar-brand-text">AMM <small>Gestor</small></span>
+        <span className="topbar-brand-text">AMM <small>Gestor de Pedidos</small></span>
       </div>
       <div className="topbar-end">
         <span className="topbar-user-chip">Olá, <strong>{user?.nome?.split(' ')[0]}</strong></span>

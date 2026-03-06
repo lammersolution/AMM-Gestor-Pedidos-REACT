@@ -31,11 +31,11 @@ export default function Login() {
 
       <div className="login-card">
         <div className="login-logo">
-          <img src="/logo.png" alt="AMM" style={{ height:64, width:'auto', display:'block' }} />
+          <img src="/logo.png" alt="AMM" style={{ height:72, width:'auto', display:'block', filter:'drop-shadow(0 0 12px rgba(77,163,232,.5))' }} />
         </div>
 
         <h1 className="login-title">Bem‑vindo</h1>
-        <p className="login-sub">Digite sua senha para continuar</p>
+        <p className="login-sub">AMM Gestor de Pedidos — informe sua senha</p>
 
         {erro && (
           <div className="login-erro">

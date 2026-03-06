@@ -92,11 +92,7 @@ export default function Dashboard() {
   const [pedidoVerItens, setPedidoVerItens]   = useState(null);
   const [pedidoVerDados, setPedidoVerDados]   = useState(null);
   const [pedidoParaImportar, setPedidoParaImportar] = useState(null);
-  const [tema, setTema] = useState(() => {
-    const s = localStorage.getItem('amm_tema');
-    if (s) return s;
-    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'escuro' : 'claro';
-  });
+  const [tema] = useState('escuro');
 
   const prodDebounce = useRef(null);
   const pedidoIdRef  = useRef(null);
@@ -120,9 +116,8 @@ export default function Dashboard() {
   }, [navigate]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
-    document.documentElement.setAttribute('data-tema', tema === 'claro' ? 'claro' : '');
-    localStorage.setItem('amm_tema', tema);
-  }, [tema]);
+    document.documentElement.setAttribute('data-tema', '');
+  }, []);
 
   useEffect(() => {
     const handle = e => {
@@ -326,16 +321,13 @@ export default function Dashboard() {
       <header className="topbar" style={{ flexShrink:0 }}>
         <div className="topbar-brand">
           <div className="topbar-brand-mark">
-            <img src="/logo.png" alt="AMM" style={{ height:20, width:'auto', display:'block' }} />
+            <img src="/logo.png" alt="AMM" style={{ height:22, width:'auto', display:'block', filter:'drop-shadow(0 0 8px rgba(77,163,232,.4))' }} />
           </div>
-          <span className="topbar-brand-text">AMM <small>Gestor</small></span>
+          <span className="topbar-brand-text">AMM <small>Gestor de Pedidos</small></span>
         </div>
         <div className="topbar-end">
           <span className="topbar-user-chip">Olá, <strong>{user?.nome?.split(' ')[0]}</strong></span>
           <button className="topbar-btn" onClick={abrirImportacao} title="Importar pedido"><IcDownload /></button>
-          <button className="topbar-btn" onClick={() => setTema(t => t === 'escuro' ? 'claro' : 'escuro')} title="Tema">
-            <IcTheme dark={tema === 'escuro'} />
-          </button>
           <button className="topbar-btn danger" onClick={async () => { await logout(); navigate('/'); }} title="Sair"><IcLogout /></button>
         </div>
       </header>
@@ -622,7 +614,7 @@ export default function Dashboard() {
             </div>
             <div>
               <div style={{ fontSize:'.65rem', color:'var(--s-500)', textTransform:'uppercase', letterSpacing:'.3px', marginBottom:3 }}>Total do Pedido</div>
-              <div style={{ fontWeight:800, fontSize:'1.5rem', color:'var(--blue-400)', fontFamily:'var(--font-mono)' }}>{formatMoeda(total)}</div>
+              <div style={{ fontWeight:800, fontSize:'1.5rem', color:'var(--amber)', fontFamily:'var(--font-condensed)' }}>{formatMoeda(total)}</div>
             </div>
           </div>
           <p style={{ fontSize:'.82rem', color:'var(--s-500)' }}>
@@ -660,7 +652,7 @@ export default function Dashboard() {
                 <div style={{ fontWeight:600, fontSize:'.9rem', color:'var(--text-primary)' }}>{p.CLIENTE_NOME}</div>
               </div>
               <div style={{ textAlign:'right', flexShrink:0 }}>
-                <div style={{ fontWeight:700, fontFamily:'var(--font-mono)', color:'var(--blue-400)', fontSize:'.9rem' }}>{formatMoeda(p.TOTAL)}</div>
+                <div style={{ fontWeight:700, fontFamily:'var(--font-condensed)', color:'var(--amber)', fontSize:'.9rem' }}>{formatMoeda(p.TOTAL)}</div>
                 <IcChevron />
               </div>
             </div>
@@ -680,7 +672,7 @@ export default function Dashboard() {
                 </div>
                 <div style={{ fontSize:'.72rem', color:'var(--s-500)', marginTop:3 }}>Qtd: {formatQtd(i.QUANTIDADE)} × {formatMoeda(i.PRECO_UNIT)}</div>
               </div>
-              <div style={{ fontWeight:700, fontFamily:'var(--font-mono)', color:'var(--blue-400)', fontSize:'.9rem', flexShrink:0 }}>{formatMoeda(i.TOTAL)}</div>
+              <div style={{ fontWeight:700, fontFamily:'var(--font-condensed)', color:'var(--amber)', fontSize:'.9rem', flexShrink:0 }}>{formatMoeda(i.TOTAL)}</div>
             </div>
           ))}
         </div>
